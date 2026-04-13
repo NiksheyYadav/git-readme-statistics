@@ -1,14 +1,32 @@
 import "dotenv/config";
+import express from "express";
+import gistCard from "./api/gist.js";
 import statsCard from "./api/index.js";
 import repoCard from "./api/pin.js";
 import langCard from "./api/top-langs.js";
 import wakatimeCard from "./api/wakatime.js";
-import gistCard from "./api/gist.js";
-import express from "express";
 
 const app = express();
 const router = express.Router();
 
+// Middleware for parsing JSON
+app.use(express.json({ limit: "1kb" }));
+
+// Root route with quick API usage info.
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    name: "github-readme-stats",
+    endpoints: [
+      "/api",
+      "/api/pin",
+      "/api/top-langs",
+      "/api/wakatime",
+      "/api/gist",
+    ],
+  });
+});
+
+// API card routes
 router.get("/", statsCard);
 router.get("/pin", repoCard);
 router.get("/top-langs", langCard);
