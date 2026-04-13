@@ -2,6 +2,8 @@
 
 /**
  * Simple root page handler for the project homepage.
+ *
+ * @returns {import("express").Response} HTML response with API usage info.
  */
 export default (_req, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
